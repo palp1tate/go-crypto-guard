@@ -25,22 +25,22 @@
     <a href=https://goreportcard.com/report/github.com/palp1tate/go-crypto-guard>
         <img src="https://goreportcard.com/badge/github.com/palp1tate/go-crypto-guard" alt="go report">
     </a>
-    <a href="#">
+    <span>
       <img src="https://img.shields.io/github/languages/top/palp1tate/go-crypto-guard" alt="language">
-    </a>
-    <a href="#">
+    </span>
+    <span>
       <img src="https://img.shields.io/github/last-commit/palp1tate/go-crypto-guard" alt="last commit">
-    </a>
-   <a href="#">
+    </span>
+   <span>
       <img src="https://komarev.com/ghpvc/?username=go-crypto-guard&label=Views&color=0e75b6&style=flat" alt="访问量统计" />
-    </a>
+    </span>
 </div>
 
-## Introduction
+## 介绍
 
-This repository contains a comprehensive password hashing library written in Go. The library supports multiple hashing algorithms including PBKDF2 (with SHA1, SHA256, SHA384, SHA512, and MD5), Bcrypt, Scrypt, Argon2, HMAC, Blake2b, and Blake2s. It allows for customizable salt length, iterations, key length, and algorithm selection. This open-source project aims to provide developers with a versatile tool for secure password storage and validation.
+该存储库包含一个用 Go 编写的综合密码哈希库。该库支持多种哈希算法，包括 PBKDF2（使用 SHA1、SHA256、SHA384、SHA512 和 MD5）、Bcrypt、Scrypt、Argon2、HMAC、Blake2b 和 Blake2s。它允许自定义盐长度、迭代、密钥长度和算法选择。该开源项目旨在为开发人员提供用于安全密码存储和验证的多功能工具。
 
-Algorithms supported:
+支持的算法:
 
 - [SHA512](https://medium.com/@zaid960928/cryptography-explaining-sha-512-ad896365a0c1)
 - [SHA384](https://medium.com/@zaid960928/cryptography-explaining-sha-512-ad896365a0c1)
@@ -54,15 +54,15 @@ Algorithms supported:
 - [Blake2b](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
 - [Blake2s](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
 
-## Installation
+## 安装
 
 ```
 go get github.com/palp1tate/go-crypto-guard 
 ```
 
-## Usage
+## 用法
 
-Some examples of usage are provided below:
+下面提供了一些用法示例：
 
 ```go
 package main
@@ -95,9 +95,7 @@ func main() {
 }
 ```
 
-For SHA512,SHA256,SHA1,SHA384,Md5,Argon2,you can fill in all the parameters or not.
-
-But for other algorithms, they don't need so many parameters,you can even specify only what the algorithm is:
+对于SHA512、SHA256、SHA1、SHA384、Md5、Argon2，可以填写全部参数，也可以不完全填写。但对于其他算法，它们不需要那么多参数，你甚至可以只用指定具体的算法：
 
 ```go
 //Bcrypt
@@ -113,7 +111,7 @@ options := pwd.Options{
 //...
 ```
 
-`Options` defines parameters for customizing the password hashing process.  Each field has a default value, even if you don't pass parameters.
+`Options`定义用于自定义密码散列过程的参数。每个字段都有一个默认值，即使您不传递参数也是如此。
 
 ```go
 // Fields:
@@ -129,27 +127,27 @@ type Options struct {
 }
 ```
 
-## Contribute
+## 贡献
 
-Welcome contributions to the repository. Here are a few ways you can help:
+欢迎贡献。您可以通过以下几种方式提供帮助：
 
-1. **Report bugs**: If you encounter any issues or bugs, please open an issue on the GitHub repository.
-2. **Suggest enhancements**: If you have ideas for new features or improvements, feel free to open an issue detailing your suggestion.
-3. **Submit pull requests**: If you’ve fixed a bug or developed a new feature, we’d love to see it. Please submit a pull request with your changes.
+1. **报告错误**：如果您遇到任何问题或错误，请在 GitHub 存储库上提出问题。
+2. **建议增强功能**：如果您对新功能或改进有任何想法，请随时提出一个问题，详细说明您的建议。
+3. **提交拉取请求**：如果您修复了错误或开发了新功能，我们很乐意看到它。请提交包含您的更改的拉取请求。
 
-Before contributing, please make sure to read and follow our code of conduct and contribution guidelines (if available).
+在贡献之前，请务必阅读并遵守我们的行为准则和贡献指南（如果有）。
 
-## Future Plans
+## 未来的计划
 
-We plan to incorporate more hashing algorithms in future versions to cater to different scenarios and requirements. Here are some algorithms that we might consider:
+我们计划在未来的版本中加入更多的哈希算法，以满足不同的场景和需求。以下是我们可能考虑的一些算法：
 
 - [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
 - [DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard)
 - [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
-- …
+- ……
 
-Please note that this is just a plan and might change according to project needs and community feedback. We will keep our users updated with any changes or additions through our GitHub repository.
+请注意，这只是一个计划，可能会根据项目需求和社区反馈进行更改。我们将通过 GitHub 存储库向用户通报任何更改或添加的最新情况。
 
-## License
+## 开源协议
 
-This project is licensed under the Apache License 2.0. See the [Apache License 2.0](https://github.com/palp1tate/go-crypto-guard/blob/main/LICENSE) file for more details.
+该项目根据 Apache License 2.0 获得许可。有关更多详细信息，请参阅[Apache 许可证 2.0](https://github.com/palp1tate/go-crypto-guard/blob/main/LICENSE)文件。

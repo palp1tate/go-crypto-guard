@@ -19,7 +19,9 @@ import (
 	"golang.org/x/crypto/scrypt"
 )
 
+// Verify checks if a password matches the encoded hash
 func Verify(password, encoded string) (bool, error) {
+	// Split the encoded hash into its components
 	parts := strings.Split(encoded, "$")
 	if len(parts) != 4 {
 		return false, fmt.Errorf("incorrect password format")
@@ -30,6 +32,7 @@ func Verify(password, encoded string) (bool, error) {
 	storedHash := parts[3]
 	var dk []byte
 
+	// Check the password against the selected algorithm
 	switch algorithm {
 
 	case SHA512:
@@ -48,6 +51,7 @@ func Verify(password, encoded string) (bool, error) {
 		dk = pbkdf2.Key([]byte(password), []byte(salt), iter, len(storedHash)/2, md5.New)
 
 	case Bcrypt:
+		// Decode the stored hash and compare it with the password
 		str2byte, err := hex.DecodeString(storedHash)
 		if err != nil {
 			return false, err
@@ -61,6 +65,7 @@ func Verify(password, encoded string) (bool, error) {
 		if err != nil {
 			return false, err
 		}
+
 	case Argon2:
 		dk = argon2.IDKey([]byte(password), []byte(salt), uint32(iter), uint32(len(storedHash)/2), uint8(1), uint32(len(storedHash)/2))
 
@@ -70,6 +75,7 @@ func Verify(password, encoded string) (bool, error) {
 		dk = h.Sum(nil)
 
 	case Blake2b:
+		// Create a new Blake2b hash and compare it with the password
 		h, err := blake2b.New256([]byte(salt))
 		if err != nil {
 			return false, err
@@ -78,6 +84,7 @@ func Verify(password, encoded string) (bool, error) {
 		dk = h.Sum(nil)
 
 	case Blake2s:
+		// Create a new Blake2s hash and compare it with the password
 		h, err := blake2s.New256([]byte(salt))
 		if err != nil {
 			return false, err
@@ -89,5 +96,6 @@ func Verify(password, encoded string) (bool, error) {
 		return false, fmt.Errorf("unknown algorithm")
 	}
 
+	// Compare the computed hash with the stored hash
 	return hex.EncodeToString(dk) == storedHash, nil
 }
