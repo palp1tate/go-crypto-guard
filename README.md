@@ -36,6 +36,11 @@
     </a>
 </div>
 
+## Language
+
+- [English](https://github.com/palp1tate/go-crypto-guard/blob/main/README.md)
+- [中文](https://github.com/palp1tate/go-crypto-guard/blob/main/README_CN.md)
+
 ## Introduction
 
 This repository contains a comprehensive password hashing library written in Go. The library supports multiple hashing algorithms including PBKDF2 (with SHA1, SHA256, SHA384, SHA512, and MD5), Bcrypt, Scrypt, Argon2, HMAC, Blake2b, and Blake2s. It allows for customizable salt length, iterations, key length, and algorithm selection. This open-source project aims to provide developers with a versatile tool for secure password storage and validation.
