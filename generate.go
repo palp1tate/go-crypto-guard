@@ -10,14 +10,12 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"golang.org/x/crypto/scrypt"
-
-	"golang.org/x/crypto/blake2b"
-	"golang.org/x/crypto/blake2s"
-
 	"golang.org/x/crypto/argon2"
 	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/blake2b"
+	"golang.org/x/crypto/blake2s"
 	"golang.org/x/crypto/pbkdf2"
+	"golang.org/x/crypto/scrypt"
 )
 
 const (
