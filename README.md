@@ -59,6 +59,12 @@ Algorithms supported:
 - [Blake2b](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
 - [Blake2s](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
 
+The format of the`password` is same as the encryption algorithm format that comes with [Django](https://www.djangoproject.com/):
+
+```go
+<algorithm>$<iterations>$<salt>$<hash>
+```
+
 ## Installation
 
 ```

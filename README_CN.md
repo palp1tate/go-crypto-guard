@@ -25,16 +25,17 @@
     <a href=https://goreportcard.com/report/github.com/palp1tate/go-crypto-guard>
         <img src="https://goreportcard.com/badge/github.com/palp1tate/go-crypto-guard" alt="go report">
     </a>
-    <span>
+    <a href="#">
       <img src="https://img.shields.io/github/languages/top/palp1tate/go-crypto-guard" alt="language">
-    </span>
-    <span>
+    </a>
+    <a href="#">
       <img src="https://img.shields.io/github/last-commit/palp1tate/go-crypto-guard" alt="last commit">
-    </span>
-   <span>
+    </a>
+   <a href="#">
       <img src="https://komarev.com/ghpvc/?username=go-crypto-guard&label=Views&color=0e75b6&style=flat" alt="访问量统计" />
-    </span>
+    </a>
 </div>
+
 
 ## 介绍
 
@@ -53,6 +54,12 @@
 - [Scrypt](https://en.wikipedia.org/wiki/Scrypt)
 - [Blake2b](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
 - [Blake2s](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
+
+password的格式与[Django](https://www.djangoproject.com/)内置的加密算法格式相同:
+
+```go
+<algorithm>$<iterations>$<salt>$<hash>
+```
 
 ## 安装
 
