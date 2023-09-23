@@ -132,6 +132,5 @@ func Generate(password string, options *Options) (hashPwd string, err error) {
 	}
 
 	hashPwd = fmt.Sprintf("%s$%d$%s$%s", algorithm, iter, salt, hex.EncodeToString(dk))
-	fmt.Println(hashPwd)
 	return
 }
