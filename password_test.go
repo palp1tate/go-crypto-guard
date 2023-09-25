@@ -104,6 +104,21 @@ func TestVerifyBcrypt(t *testing.T) {
 	}
 }
 
+func TestVerifyScrypt(t *testing.T) {
+	encoded, err := Generate(password, &Options{
+		KeyLen:    23,
+		Algorithm: Scrypt,
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	if ok, err := Verify(password, encoded); !ok {
+		t.Error(err)
+	} else {
+		t.Log("VerifyScrypt success")
+	}
+}
+
 func TestVerifyArgon2(t *testing.T) {
 	encoded, err := Generate(password, &Options{
 		KeyLen:    58,
