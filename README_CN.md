@@ -130,7 +130,7 @@ type Options struct {
 	SaltLen    int    //  Defaults to 16.
 	Iterations int    //  Defaults to 50.
 	KeyLen     int    //  Defaults to 32.
-	Algorithm  string //  Defaults to "SHA512".
+	Algorithm  Algorithm //  Defaults to "SHA512".
 }
 ```
 
