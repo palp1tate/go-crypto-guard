@@ -5,7 +5,7 @@ import "testing"
 func TestRC4(t *testing.T) {
 	pwd := "123456rsgzerszgr"
 	key := "wxy1sagededawsaehsrgrwg23"
-	encodedPwd, err := RC4(pwd, key)
+	encodedPwd, err := GenRC4(pwd, key)
 	if err != nil {
 		t.Error(err)
 	}
