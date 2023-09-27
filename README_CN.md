@@ -4,8 +4,11 @@
     <a href="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
       <img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release">
     </a>
-    <a href="https://pkg.go.dev/github.com/palp1tate/go-crypto-guard/v2">
+    <a href="https://pkg.go.dev/github.com/palp1tate/go-crypto-guard">
       <img src="https://godoc.org/github.com/palp1tate/go-crypto-guard?status.svg" alt="Godoc">
+    </a>
+    <a href="https://pkg.go.dev/github.com/palp1tate/go-crypto-guard?tab=doc">
+      <img src="https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square" alt="go.dev reference">
     </a>
     <a href="https://github.com/palp1tate/go-crypto-guard/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/palp1tate/go-crypto-guard?style=flat-square" alt="license">
@@ -36,10 +39,9 @@
     </a>
 </div>
 
-
 ## 介绍
 
-该存储库包含一个用 Go 编写的综合密码哈希库。该库支持多种哈希算法，包括 PBKDF2（使用 SHA1、SHA256、SHA384、SHA512 和 MD5）、Bcrypt、Scrypt、Argon2、HMAC、Blake2b 和 Blake2s。它允许自定义盐长度、迭代、密钥长度和算法选择。该开源项目旨在为开发人员提供用于安全密码存储和验证的多功能工具。
+此存储库包含用 Go 编写的全面的密码哈希库。该库支持多种哈希算法，它允许可定制的盐长度、迭代、键长度和算法选择。这个开源项目旨在为开发人员提供一个多功能的工具，用于安全的密码存储和验证。
 
 支持的算法:
 
@@ -54,84 +56,147 @@
 - [Scrypt](https://en.wikipedia.org/wiki/Scrypt)
 - [Blake2b](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
 - [Blake2s](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
+- AES
+- DES
+- 3DES
+- RSA
+- RC4
+- Blowfish
+- ECC
 
-password的格式与[Django](https://www.djangoproject.com/)内置的加密算法格式相同:
+一些加密过后的密码格式与[Django](https://www.djangoproject.com/)内置的加密算法格式相同:
 
 ```go
 <algorithm>$<iterations>$<salt>$<hash>
 ```
 
+其他可能的格式:
+
+```go
+<algorithm>$<hash>
+```
+
 ## 安装
 
-```
-go get github.com/palp1tate/go-crypto-guard 
+```go
+go get -u github.com/palp1tate/go-crypto-guard 
 ```
 
 ## 用法
 
-下面提供了一些用法示例：
+### SHA512
 
 ```go
-package main
+// SHA512 使用 PBKDF2 和 SHA-512 对密码进行加密。
+// 它接受密码、盐长度、密钥长度和迭代次数作为输入。如果你传入一个无效的值，函数将采取默认值。
+// 它生成一个盐，使用 PBKDF2 和 SHA-512 派生一个密钥，并返回加密的密码。
+// 密码的格式：<algorithm>$<iterations>$<salt>$<hash>
+//pbkdf2_sha512$100$40fde046f66c1d9e55b4435d$1fdd34c50a98e576b612d66be507f019
 
-import (
-	"fmt"
-	"github.com/palp1tate/go-crypto-guard"
-)
-
-func main() {
-	originPwd := "123456"
-	options := pwd.Options{
-		SaltLen:    16,
-		KeyLen:     32,
-		Iterations: 100,
-		Algorithm:  pwd.SHA512,
-	}
-	encodedPwd, err := pwd.Generate(originPwd, &options)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println("Encoded password:", encodedPwd)
-
-	if ok, err := pwd.Verify(originPwd, encodedPwd); err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("Verify result:", ok)
-	}
-}
+password := "12345678"
+encodedPassword, _ := SHA512(password, 12, 16, 100)
+ok, _ := VerifySHA512(password, encodedPassword)
 ```
 
-对于SHA512、SHA256、SHA1、SHA384、Md5、Argon2，可以填写全部参数，也可以不完全填写。但对于其他算法，它们不需要那么多参数，你甚至可以只用指定具体的算法：
+**SHA384、 SHA256、 SHA1、 Md5和 Argon2的用法与 SHA512相同**.
+
+### HMAC
 
 ```go
-//Bcrypt
-options := pwd.Options{
-		Algorithm: pwd.Bcrypt,
-	}
+// HMAC 使用 HMAC 和 SHA-256 对密码进行加密。
+// 它接受密码和盐长度作为输入。
+// 它生成一个盐，使用盐和 SHA-256 计算密码的 HMAC，并返回加密的密码。
+// 密码的格式：<algorithm>$<salt>$<hash>
+//hmac$3bf4e2c1a9ed54575d0d1f937eb363ab$a6ed73f8fe48867db2bd58c69ebe6c0fb91ecdd8147c4352fecf018d07cb4f43
 
-//HMAC
-options := pwd.Options{
-		Algorithm: pwd.HMAC,
-	}
-
-//...
+password := "12345678"
+encodedPassword, _ := HMAC(password, 16)
+ok, _ := VerifyHMAC(password, encodedPassword)
 ```
 
-`Options`定义用于自定义密码散列过程的参数。每个字段都有一个默认值，即使您不传递参数也是如此。
+### Bcrypt
 
 ```go
-// Fields:
-//   - SaltLen: Length of the salt to be generated for password hashing.
-//   - Iterations: Number of iterations to apply during the hashing process.
-//   - KeyLen: Length of the derived key produced by the hashing algorithm.
-//   - Algorithm: The specific hashing algorithm to be used for password hashing.
-type Options struct {
-	SaltLen    int    //  Defaults to 16.
-	Iterations int    //  Defaults to 50.
-	KeyLen     int    //  Defaults to 32.
-	Algorithm  string //  Defaults to "SHA512".
-}
+// Bcrypt 使用 Bcrypt 哈希函数对密码进行加密。
+// 它接受一个密码作为输入，使用 Bcrypt 的默认成本从密码生成一个哈希，并返回加密的密码。
+// 密码的格式：<algorithm>$<hash>
+//bcrypt$243261243130246769545174546869684f565835616a694a4e3578432e6e387a4c426451526932692e443067756758334a436d3532717365784e5661
+
+password := "12345678"
+encodedPassword, _ := Bcrypt(password)
+ok, _ := VerifyBcrypt(password, encodedPassword)
+```
+
+**对 Blake2b、 Blake2s 的使用与对 Bcrypt 的使用相同**.
+
+### Scrypt
+
+```go
+// Scrypt 使用 Scrypt 密钥派生函数对密码进行加密。
+// 它接受一个密码、盐长度和密钥长度作为输入。
+// 它生成一个盐，使用 Scrypt 和提供的参数派生一个密钥，并返回加密的密码。
+// 密码的格式：<algorithm>$<salt>$<hash>
+//scrypt$679a0a3c8336a9ff36b809862e7d494c$c4cec5ca742fa984045457f76d217acf245f032251c6a3952c4d68e1cba4a488
+
+password := "12345678"
+encodedPassword, _ := Scrypt(password, 16, 32)
+ok, _ := VerifyScrypt(password, encodedPassword)
+```
+
+### AES
+
+```go
+// AES 使用 AES 加密算法对密码进行加密。
+// 它接受一个密码和一个 AES 密钥作为输入。
+// 它从 AES 密钥创建一个新的密码块，对密码应用 PKCS7 填充，并使用 CBC 模式加密密码。它返回加密的密码。
+// 密码的格式：<algorithm>$<hash>
+// aes$BhV9oJiePwpsEwDWizJoCA==
+
+password := "12345678"
+//aes key的长度必须为32
+aesKey := "palpitateabcdefghijklmn123456789"
+encodedPassword, _ := AES(password, aesKey)
+ok, _ := VerifyAES(password, encodedPassword, aesKey)
+```
+
+**DES、ThreeDES、RC4和Blowfish的使用与Bcrypt相同，对于DES，desKey的长度必须为8。对于ThreeDES，threeDesKey的长度必须为24。rc4Key和BlowfishKey的长度没有限制，但对于Blowfish，密码的长度必须为8。**
+
+### RSA
+
+```go
+// GenRSAKey 生成一对 RSA 密钥并将它们保存到文件中。 
+// 它接受密钥的位数作为输入。推荐使用 2048 或 4096。 
+// 它生成一个私钥和一个公钥，并分别将它们写入 “privateKey.pem” 和 “publicKey.pem”。
+
+// RSA 使用 RSA 加密算法对密码进行加密。 
+// 它接受一个密码和公钥文件的路径作为输入。 
+// 它从文件中读取公钥，使用 RSA 和 PKCS1v15 填充对密码进行加密，并返回加密的密码。 
+// 密码的格式：<algorithm>$<hash> 
+//rsa$3p1+X80iFIDtwtKOQFjXm+deyv+cxkEIbpXuwXcqbcCvean6zyWvcrogQtDj2MkYOE2ScHpARR93RYxs3y+RXetKAHhrDqWURYcyJwuTwShBmR4hz+3WkFzhqm44IgPdlgdt70uO7TXx6fj1WmUTsZpNDTF/WNdEUO7Rzc8wahYBcnMOnPgUXrnUCYRSX7OBjuLwThnd9FTgh8CdaqESHWh6UPgkj9xz3G2uRplx2Tae0Pbsk8vQTuJXsqT//Q8yoC+ELo+5S6wTE6H8AMBdgvJgNHzFDldQD8UsZ7Ta/u2uF/joHwBA6V6IS4+1ithspE9ceJZCBWo2Cj6fMIbvjg==
+
+// 在你可以加密密码之前，你必须先生成一对密钥。这个函数只能被调用一次，记住在验证密码时需要相同的密钥对。
+
+_ = GenRSAKey(2048)	//只需要执行一次就可以注释掉
+password := "12345678"
+encodedPassword, _ := RSA(password, "publicKey.pem")
+ok, _ := VerifyRSA(password, encodedPassword, "privateKey.pem")
+```
+
+### ECC
+
+```go
+// ECC 使用 ECC 加密算法对密码进行加密。
+// 它接受一个密码和一个私钥作为输入。
+// 它计算密码的 SHA-256 摘要，使用私钥对摘要进行签名，并返回加密的密码。
+// 密码的格式：<algorithm>$<hash>
+//ecc$BQOoQvBhRHKi9GsV0qpPiyMJ5hRwdiXlQL7CcMsPCo1GvIomtb8xzjNnmq7RNRWmS9AKXo+i0Cg4fmAdLeCN8w==
+
+
+password := "12345678"
+privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+encodedPassword, _ := ECC(password, privateKey)
+publicKey := privateKey.PublicKey
+ok, _ := VerifyECC(password, encodedPassword publicKey)
 ```
 
 ## 贡献
@@ -144,17 +209,7 @@ type Options struct {
 
 在贡献之前，请务必阅读并遵守我们的行为准则和贡献指南（如果有）。
 
-## 未来的计划
-
-我们计划在未来的版本中加入更多的哈希算法，以满足不同的场景和需求。以下是我们可能考虑的一些算法：
-
-- [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
-- [DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard)
-- [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
-- ……
-
-请注意，这只是一个计划，可能会根据项目需求和社区反馈进行更改。我们将通过 GitHub 存储库向用户通报任何更改或添加的最新情况。
-
 ## 开源协议
 
-该项目根据 Apache License 2.0 获得许可。有关更多详细信息，请参阅[Apache 许可证 2.0](https://github.com/palp1tate/go-crypto-guard/blob/main/LICENSE)文件。
+该项目根据 Apache License 2.0
+获得许可。有关更多详细信息，请参阅[Apache 许可证 2.0](https://github.com/palp1tate/go-crypto-guard/blob/main/LICENSE)文件。
