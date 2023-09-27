@@ -8,7 +8,7 @@ import (
 	"golang.org/x/crypto/blowfish"
 )
 
-func Blowfish(password, blowfishKey string) (encryptedPassword string, err error) {
+func GenBlowfish(password, blowfishKey string) (encryptedPassword string, err error) {
 	if len(password) != 8 {
 		err = fmt.Errorf("password length must be 8")
 		return

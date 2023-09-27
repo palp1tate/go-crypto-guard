@@ -9,7 +9,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func AES(password, aesKey string) (encryptedPassword string, err error) {
+func GenAES(password, aesKey string) (encryptedPassword string, err error) {
 	if len(aesKey) != 32 {
 		err = fmt.Errorf("the length of aes key must be 32")
 		return

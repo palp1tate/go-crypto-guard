@@ -4,7 +4,7 @@ import "testing"
 
 func TestBcrypt(t *testing.T) {
 	password := "123456"
-	encryptedPassword, err := Bcrypt(password)
+	encryptedPassword, err := GenBcrypt(password)
 	if err != nil {
 		t.Error(err)
 	}

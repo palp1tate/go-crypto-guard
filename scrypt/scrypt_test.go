@@ -4,7 +4,7 @@ import "testing"
 
 func TestScrypt(t *testing.T) {
 	pwd := "123456"
-	encodedPwd, err := Scrypt(pwd, 16, 32)
+	encodedPwd, err := GenScrypt(pwd, 16, 32)
 	if err != nil {
 		t.Error(err)
 	}

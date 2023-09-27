@@ -6,7 +6,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func SHA512(password string, saltLength, keyLength, iterations int) (encryptedPassword string, err error) {
+func GenSHA512(password string, saltLength, keyLength, iterations int) (encryptedPassword string, err error) {
 	password, saltLength, keyLength, iterations, err = pwd.ParseParameters(password, saltLength, keyLength, iterations)
 	if err != nil {
 		return

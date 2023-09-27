@@ -4,7 +4,7 @@ import "testing"
 
 func TestHMAC(t *testing.T) {
 	pwd := "123456"
-	encodedPwd, err := HMAC(pwd, 16)
+	encodedPwd, err := GenHMAC(pwd, 16)
 	if err != nil {
 		t.Error(err)
 	}

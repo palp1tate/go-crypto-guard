@@ -4,7 +4,7 @@ import "testing"
 
 func TestArgon2(t *testing.T) {
 	pwd := "123456"
-	encodedPwd, err := Argon2(pwd, 12, 16, 100)
+	encodedPwd, err := GenArgon2(pwd, 12, 16, 100)
 	if err != nil {
 		t.Error(err)
 	}

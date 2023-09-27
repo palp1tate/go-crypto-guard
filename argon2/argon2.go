@@ -7,7 +7,7 @@ import (
 	"golang.org/x/crypto/argon2"
 )
 
-func Argon2(password string, saltLength, keyLength, iterations int) (encryptedPassword string, err error) {
+func GenArgon2(password string, saltLength, keyLength, iterations int) (encryptedPassword string, err error) {
 	password, saltLength, keyLength, iterations, err = pwd.ParseParameters(password, saltLength, keyLength, iterations)
 	if err != nil {
 		return

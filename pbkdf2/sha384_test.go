@@ -4,7 +4,7 @@ import "testing"
 
 func TestSHA384(t *testing.T) {
 	pwd := "123456"
-	encodedPwd, err := SHA384(pwd, 12, 32, 13)
+	encodedPwd, err := GenSHA384(pwd, 12, 32, 13)
 	if err != nil {
 		t.Error(err)
 	}

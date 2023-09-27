@@ -8,7 +8,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func RC4(password, rc4Key string) (encryptedPassword string, err error) {
+func GenRC4(password, rc4Key string) (encryptedPassword string, err error) {
 	cipher, err := rc4.NewCipher([]byte(rc4Key))
 	if err != nil {
 		return

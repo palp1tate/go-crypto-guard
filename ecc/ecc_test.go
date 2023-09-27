@@ -10,7 +10,7 @@ import (
 func TestECC(t *testing.T) {
 	pwd := "12345678"
 	privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-	encryptedPassword, err := ECC(pwd, privateKey)
+	encryptedPassword, err := GenECC(pwd, privateKey)
 	if err != nil {
 		t.Errorf("ECC error: %v", err)
 	}

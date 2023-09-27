@@ -5,7 +5,7 @@ import "testing"
 func TestRSA(t *testing.T) {
 	_ = GenRSAKey(2048)
 	pwd := "123456wdWFezWAgf"
-	encryptedPwd, err := RSA(pwd, "publicKey.pem")
+	encryptedPwd, err := GenRSA(pwd, "publicKey.pem")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -5,7 +5,7 @@ import "testing"
 func TestThreeDES(t *testing.T) {
 	pwd := "1285rt455s45b5er4b434"
 	key := "123456789123485456789456"
-	encryptedPwd, err := ThreeDES(pwd, key)
+	encryptedPwd, err := GenThreeDES(pwd, key)
 	if err != nil {
 		t.Fatal(err)
 	}

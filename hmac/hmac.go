@@ -9,7 +9,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func HMAC(password string, saltLength int) (encryptedPassword string, err error) {
+func GenHMAC(password string, saltLength int) (encryptedPassword string, err error) {
 	if saltLength <= 0 {
 		saltLength = pwd.DefaultSaltLength
 	}

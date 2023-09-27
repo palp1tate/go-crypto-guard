@@ -11,7 +11,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func ECC(password string, privateKey *ecdsa.PrivateKey) (encryptedPassword string, err error) {
+func GenECC(password string, privateKey *ecdsa.PrivateKey) (encryptedPassword string, err error) {
 	digest := sha256.Sum256([]byte(password))
 	r, s, err := ecdsa.Sign(rand.Reader, privateKey, digest[:])
 	if err != nil {

@@ -102,8 +102,8 @@ Some examples of usage are provided below:
 //pbkdf2_sha512$100$40fde046f66c1d9e55b4435d$1fdd34c50a98e576b612d66be507f019
 
 password := "12345678"
-encodedPassword, _ := SHA512(password, 12, 16, 100)
-ok, _ := VerifySHA512(password, encodedPassword)
+encodedPassword, _ := pwd.GenSHA512(password, 12, 16, 100)
+ok, _ := pwd.VerifySHA512(password, encodedPassword)
 ```
 
 **The use of SHA384、SHA256、SHA1、Md5 and Argon2 are the same as for SHA512**.
@@ -118,8 +118,8 @@ ok, _ := VerifySHA512(password, encodedPassword)
 //hmac$3bf4e2c1a9ed54575d0d1f937eb363ab$a6ed73f8fe48867db2bd58c69ebe6c0fb91ecdd8147c4352fecf018d07cb4f43
 
 password := "12345678"
-encodedPassword, _ := HMAC(password, 16)
-ok, _ := VerifyHMAC(password, encodedPassword)
+encodedPassword, _ := pwd.GenHMAC(password, 16)
+ok, _ := pwd.VerifyHMAC(password, encodedPassword)
 ```
 
 ### Bcrypt
@@ -131,8 +131,8 @@ ok, _ := VerifyHMAC(password, encodedPassword)
 //bcrypt$243261243130246769545174546869684f565835616a694a4e3578432e6e387a4c426451526932692e443067756758334a436d3532717365784e5661
 
 password := "12345678"
-encodedPassword, _ := Bcrypt(password)
-ok, _ := VerifyBcrypt(password, encodedPassword)
+encodedPassword, _ := pwd.GenBcrypt(password)
+ok, _ := pwd.VerifyBcrypt(password, encodedPassword)
 ```
 
 **The use of Blake2b、Blake2s、 are the same as for Bcrypt**.
@@ -147,8 +147,8 @@ ok, _ := VerifyBcrypt(password, encodedPassword)
 //scrypt$679a0a3c8336a9ff36b809862e7d494c$c4cec5ca742fa984045457f76d217acf245f032251c6a3952c4d68e1cba4a488
 
 password := "12345678"
-encodedPassword, _ := Scrypt(password, 16, 32)
-ok, _ := VerifyScrypt(password, encodedPassword)
+encodedPassword, _ := pwd.GenScrypt(password, 16, 32)
+ok, _ := pwd.VerifyScrypt(password, encodedPassword)
 ```
 
 ### AES
@@ -164,8 +164,8 @@ ok, _ := VerifyScrypt(password, encodedPassword)
 password := "12345678"
 //the length of aes key must be 32
 aesKey := "palpitateabcdefghijklmn123456789"
-encodedPassword, _ := AES(password, aesKey)
-ok, _ := VerifyAES(password, encodedPassword, aesKey)
+encodedPassword, _ := pwd.GenAES(password, aesKey)
+ok, _ := pwd.VerifyAES(password, encodedPassword, aesKey)
 ```
 
 **The use of DES 、ThreeDES、RC4 and Blowfish are the same as for Bcrypt.For DES,the length of des key must be 8.For ThreeDES,the length of threedes key must be 24.There is no limit to the length of the rc4Key and blowfishKey ,but  for Blowfish, the length of password must be 8.**
@@ -185,10 +185,10 @@ ok, _ := VerifyAES(password, encodedPassword, aesKey)
 //rsa$3p1+X80iFIDtwtKOQFjXm+deyv+cxkEIbpXuwXcqbcCvean6zyWvcrogQtDj2MkYOE2ScHpARR93RYxs3y+RXetKAHhrDqWURYcyJwuTwShBmR4hz+3WkFzhqm44IgPdlgdt70uO7TXx6fj1WmUTsZpNDTF/WNdEUO7Rzc8wahYBcnMOnPgUXrnUCYRSX7OBjuLwThnd9FTgh8CdaqESHWh6UPgkj9xz3G2uRplx2Tae0Pbsk8vQTuJXsqT//Q8yoC+ELo+5S6wTE6H8AMBdgvJgNHzFDldQD8UsZ7Ta/u2uF/joHwBA6V6IS4+1ithspE9ceJZCBWo2Cj6fMIbvjg==
 
 //Before you can encrypt a password, you must first generate a pair of keys.This function can be called only once, remembering that the same key pair is required when verifying the password.
-_ = GenRSAKey(2048)	//It only needs to be called once
+_ = pwd.GenRSAKey(2048)	//It only needs to be called once
 password := "12345678"
-encodedPassword, _ := RSA(password, "publicKey.pem")
-ok, _ := VerifyRSA(password, encodedPassword, "privateKey.pem")
+encodedPassword, _ := pwd.GenRSA(password, "publicKey.pem")
+ok, _ := pwd.VerifyRSA(password, encodedPassword, "privateKey.pem")
 ```
 
 ### ECC
@@ -203,12 +203,10 @@ ok, _ := VerifyRSA(password, encodedPassword, "privateKey.pem")
 
 password := "12345678"
 privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-encodedPassword, _ := ECC(password, privateKey)
+encodedPassword, _ := pwd.GenECC(password, privateKey)
 publicKey := privateKey.PublicKey
-ok, _ := VerifyECC(password, encodedPassword publicKey)
+ok, _ := pwd.VerifyECC(password, encodedPassword publicKey)
 ```
-
-
 
 ## Contribute
 

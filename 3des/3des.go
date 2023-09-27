@@ -9,7 +9,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func ThreeDES(password, threeDesKey string) (encryptedPassword string, err error) {
+func GenThreeDES(password, threeDesKey string) (encryptedPassword string, err error) {
 	if len(threeDesKey) != 24 {
 		err = fmt.Errorf("the length of 3des key must be 24")
 		return

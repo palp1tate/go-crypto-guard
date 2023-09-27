@@ -4,7 +4,7 @@ import "testing"
 
 func TestBlake2s(t *testing.T) {
 	pwd := "123456"
-	encodedPwd, err := Blake2s(pwd)
+	encodedPwd, err := GenBlake2s(pwd)
 	if err != nil {
 		t.Error(err)
 	}

@@ -94,8 +94,8 @@ go get -u github.com/palp1tate/go-crypto-guard
 //pbkdf2_sha512$100$40fde046f66c1d9e55b4435d$1fdd34c50a98e576b612d66be507f019
 
 password := "12345678"
-encodedPassword, _ := SHA512(password, 12, 16, 100)
-ok, _ := VerifySHA512(password, encodedPassword)
+encodedPassword, _ := pwd.GenSHA512(password, 12, 16, 100)
+ok, _ := pwd.VerifySHA512(password, encodedPassword)
 ```
 
 **SHA384、 SHA256、 SHA1、 Md5和 Argon2的用法与 SHA512相同**.
@@ -110,8 +110,8 @@ ok, _ := VerifySHA512(password, encodedPassword)
 //hmac$3bf4e2c1a9ed54575d0d1f937eb363ab$a6ed73f8fe48867db2bd58c69ebe6c0fb91ecdd8147c4352fecf018d07cb4f43
 
 password := "12345678"
-encodedPassword, _ := HMAC(password, 16)
-ok, _ := VerifyHMAC(password, encodedPassword)
+encodedPassword, _ := pwd.GenHMAC(password, 16)
+ok, _ := pwd.VerifyHMAC(password, encodedPassword)
 ```
 
 ### Bcrypt
@@ -123,8 +123,8 @@ ok, _ := VerifyHMAC(password, encodedPassword)
 //bcrypt$243261243130246769545174546869684f565835616a694a4e3578432e6e387a4c426451526932692e443067756758334a436d3532717365784e5661
 
 password := "12345678"
-encodedPassword, _ := Bcrypt(password)
-ok, _ := VerifyBcrypt(password, encodedPassword)
+encodedPassword, _ := pwd.GenBcrypt(password)
+ok, _ := pwd.VerifyBcrypt(password, encodedPassword)
 ```
 
 **对 Blake2b、 Blake2s 的使用与对 Bcrypt 的使用相同**.
@@ -139,8 +139,8 @@ ok, _ := VerifyBcrypt(password, encodedPassword)
 //scrypt$679a0a3c8336a9ff36b809862e7d494c$c4cec5ca742fa984045457f76d217acf245f032251c6a3952c4d68e1cba4a488
 
 password := "12345678"
-encodedPassword, _ := Scrypt(password, 16, 32)
-ok, _ := VerifyScrypt(password, encodedPassword)
+encodedPassword, _ := pwd.GenScrypt(password, 16, 32)
+ok, _ := pwd.VerifyScrypt(password, encodedPassword)
 ```
 
 ### AES
@@ -155,8 +155,8 @@ ok, _ := VerifyScrypt(password, encodedPassword)
 password := "12345678"
 //aes key的长度必须为32
 aesKey := "palpitateabcdefghijklmn123456789"
-encodedPassword, _ := AES(password, aesKey)
-ok, _ := VerifyAES(password, encodedPassword, aesKey)
+encodedPassword, _ := pwd.GenAES(password, aesKey)
+ok, _ := pwd.VerifyAES(password, encodedPassword, aesKey)
 ```
 
 **DES、ThreeDES、RC4和Blowfish的使用与Bcrypt相同，对于DES，desKey的长度必须为8。对于ThreeDES，threeDesKey的长度必须为24。rc4Key和BlowfishKey的长度没有限制，但对于Blowfish，密码的长度必须为8。**
@@ -176,10 +176,10 @@ ok, _ := VerifyAES(password, encodedPassword, aesKey)
 
 // 在你可以加密密码之前，你必须先生成一对密钥。这个函数只能被调用一次，记住在验证密码时需要相同的密钥对。
 
-_ = GenRSAKey(2048)	//只需要执行一次就可以注释掉
+_ = pwd.GenRSAKey(2048)	//只需要执行一次就可以注释掉
 password := "12345678"
-encodedPassword, _ := RSA(password, "publicKey.pem")
-ok, _ := VerifyRSA(password, encodedPassword, "privateKey.pem")
+encodedPassword, _ := pwd.GenRSA(password, "publicKey.pem")
+ok, _ := pwd.VerifyRSA(password, encodedPassword, "privateKey.pem")
 ```
 
 ### ECC
@@ -194,9 +194,9 @@ ok, _ := VerifyRSA(password, encodedPassword, "privateKey.pem")
 
 password := "12345678"
 privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-encodedPassword, _ := ECC(password, privateKey)
+encodedPassword, _ := pwd.GenECC(password, privateKey)
 publicKey := privateKey.PublicKey
-ok, _ := VerifyECC(password, encodedPassword publicKey)
+ok, _ := pwd.VerifyECC(password, encodedPassword publicKey)
 ```
 
 ## 贡献

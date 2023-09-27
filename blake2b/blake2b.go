@@ -8,7 +8,7 @@ import (
 	"golang.org/x/crypto/blake2b"
 )
 
-func Blake2b(password string) (encryptedPassword string, err error) {
+func GenBlake2b(password string) (encryptedPassword string, err error) {
 	salt, err := pwd.GenerateSalt(16)
 	if err != nil {
 		return

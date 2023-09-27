@@ -8,7 +8,7 @@ import (
 	"golang.org/x/crypto/scrypt"
 )
 
-func Scrypt(password string, saltLength int, keyLength int) (encryptedPassword string, err error) {
+func GenScrypt(password string, saltLength int, keyLength int) (encryptedPassword string, err error) {
 	if saltLength <= 0 {
 		saltLength = pwd.DefaultSaltLength
 	}

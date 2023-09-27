@@ -9,7 +9,7 @@ import (
 	"github.com/palp1tate/go-crypto-guard"
 )
 
-func DES(password, desKey string) (encryptedPassword string, err error) {
+func GenDES(password, desKey string) (encryptedPassword string, err error) {
 	if len(desKey) != 8 {
 		err = fmt.Errorf("the length of des key must be 8")
 	}

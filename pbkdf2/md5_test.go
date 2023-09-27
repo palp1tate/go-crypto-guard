@@ -4,7 +4,7 @@ import "testing"
 
 func TestMd5(t *testing.T) {
 	pwd := "123456"
-	encodedPwd, err := Md5(pwd, 12, 32, 13)
+	encodedPwd, err := GenMd5(pwd, 12, 32, 13)
 	if err != nil {
 		t.Error(err)
 	}

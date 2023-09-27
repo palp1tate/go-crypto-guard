@@ -46,7 +46,7 @@ func GenRSAKey(bits int) error {
 	return nil
 }
 
-func RSA(password, publicKeyPath string) (encryptedPassword string, err error) {
+func GenRSA(password, publicKeyPath string) (encryptedPassword string, err error) {
 	f, err := os.Open(publicKeyPath)
 	if err != nil {
 		return
