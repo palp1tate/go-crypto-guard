@@ -51,24 +51,24 @@ project aims to provide developers with a versatile tool for secure password sto
 
 Algorithms supported:
 
-- [SHA512](https://medium.com/@zaid960928/cryptography-explaining-sha-512-ad896365a0c1)
-- [SHA384](https://medium.com/@zaid960928/cryptography-explaining-sha-512-ad896365a0c1)
-- [SHA256](https://golden.com/wiki/SHA-256-XKEJ8AB)
-- [SHA1](https://bing.com/search?q=SHA1+algorithm+Wikipedia)
-- [Md5](https://en.wikipedia.org/wiki/MD5)
-- [HMAC](https://en.wikipedia.org/wiki/HMAC)
-- [Argon2](https://bing.com/search?q=Argon2+algorithm+Wikipedia)
-- [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt)
-- [Scrypt](https://en.wikipedia.org/wiki/Scrypt)
-- [Blake2b](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
-- [Blake2s](https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions)
-- AES
-- DES
-- 3DES
-- RSA
-- RC4
-- Blowfish
-- ECC
+- [SHA512](https://github.com/palp1tate/go-crypto-guard/blob/main/pbkdf2/sha512.go)
+- [SHA384](https://github.com/palp1tate/go-crypto-guard/blob/main/pbkdf2/sha384.go)
+- [SHA256](https://github.com/palp1tate/go-crypto-guard/blob/main/pbkdf2/sha256.go)
+- [SHA1](https://github.com/palp1tate/go-crypto-guard/blob/main/pbkdf2/sha1.go)
+- [Md5](https://github.com/palp1tate/go-crypto-guard/blob/main/pbkdf2/md5.go)
+- [HMAC](https://github.com/palp1tate/go-crypto-guard/blob/main/hmac/hmac.go)
+- [Argon2](https://github.com/palp1tate/go-crypto-guard/blob/main/argon2/argon2.go)
+- [Bcrypt](https://github.com/palp1tate/go-crypto-guard/blob/main/bcrypt/bcrypt.go)
+- [Scrypt](https://github.com/palp1tate/go-crypto-guard/blob/main/scrypt/scrypt.go)
+- [Blake2b](https://github.com/palp1tate/go-crypto-guard/blob/main/blake2b/blake2b.go)
+- [Blake2s](https://github.com/palp1tate/go-crypto-guard/blob/main/blake2s/blake2s.go)
+- [AES](https://github.com/palp1tate/go-crypto-guard/blob/main/aes/aes.go)
+- [DES](https://github.com/palp1tate/go-crypto-guard/blob/main/des/des.go)
+- [3DES](https://github.com/palp1tate/go-crypto-guard/blob/main/3des/3des.go)
+- [RSA](https://github.com/palp1tate/go-crypto-guard/blob/main/rsa/rsa.go)
+- [RC4](https://github.com/palp1tate/go-crypto-guard/blob/main/rc4/rc4.go)
+- [Blowfish](https://github.com/palp1tate/go-crypto-guard/blob/main/blowfish/blowfish.go)
+- [ECC](https://github.com/palp1tate/go-crypto-guard/blob/main/ecc/ecc.go)
 
 The format of the some `passwords` is same as the encryption algorithm format that comes with [Django](https://www.djangoproject.com/):
 
